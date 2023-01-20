@@ -1,0 +1,4 @@
+1. creating a class page to build home page and returing this homme page in the main.dart file in home widgit
+2. In this home page we are creating a stateless widgit 
+3. to call the api we have to create a future function and getting the data from the api,
+4.for that we are importing a http package  
