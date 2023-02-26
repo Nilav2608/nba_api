@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nba_api/team.dart';
@@ -7,11 +7,7 @@ import 'package:nba_api/team.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-
-
   List<Team> teams = [];
-
-
 
   Future getData() async {
     var response = await http.get(Uri.https('balldontlie.io', 'api/v1/teams'));
@@ -28,13 +24,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     getData();
     return SafeArea(
-      
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
             'NBA Teams list',
           ),
           backgroundColor: Colors.purple,
+          elevation: 0,
         ),
         body: FutureBuilder(
           future: getData(),
@@ -48,11 +44,9 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10)
-                        ),
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(10)),
                         child: ListTile(
-                          
                           title: Text(teams[index].abbreVation),
                           subtitle: Text(teams[index].city),
                         ),
@@ -64,8 +58,16 @@ class HomePage extends StatelessWidget {
             else {
               return const Center(
                 child: CircularProgressIndicator(),
-                
               );
+              // return Shimmer.fromColors(
+              //     baseColor: Colors.grey.shade200,
+              //     highlightColor: Colors.grey.shade100,
+              //     child: ListView.builder(
+              //       itemCount: teams.length,
+              //       itemBuilder: (context, index) {
+              //         return const SizedBox(width: 100,height: 50,);
+              //       },
+              //     ));
             }
           },
         ),
