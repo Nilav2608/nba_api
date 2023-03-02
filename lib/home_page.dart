@@ -1,12 +1,18 @@
 import 'dart:convert';
+import 'package:nba_api/shimmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nba_api/team.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   List<Team> teams = [];
 
   Future getData() async {
@@ -19,6 +25,15 @@ class HomePage extends StatelessWidget {
       teams.add(team);
     }
   }
+
+  // shiMmer() {
+    buildShimmerItems() => ListView.separated(
+      itemCount: 10,
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      itemBuilder: (BuildContext context, int index) {
+        return const ShimmerWidget();
+      },
+    );
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +71,7 @@ class HomePage extends StatelessWidget {
             }
             //if not show progress bar
             else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-              // return Shimmer.fromColors(
-              //     baseColor: Colors.grey.shade200,
-              //     highlightColor: Colors.grey.shade100,
-              //     child: ListView.builder(
-              //       itemCount: teams.length,
-              //       itemBuilder: (context, index) {
-              //         return const SizedBox(width: 100,height: 50,);
-              //       },
-              //     ));
+              return buildShimmerItems();
             }
           },
         ),
