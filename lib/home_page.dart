@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.connectionState == ConnectionState.done) {
               return ListView.builder(
                   itemCount: teams.length,
+                  scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
